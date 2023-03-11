@@ -10,24 +10,28 @@ async def mines(ctx, spots: int):
     if spots < 0 or spots > 25:
         await ctx.send("Please provide a number between 0 and 25.")
         return
-
     spots_list = random.sample(range(25), spots)
+    bombs = random.randint(0, 5)
+    bomb_spots = random.sample([i for i in range(25) if i not in spots_list], bombs)
 
     grid = ""
     for i in range(25):
         if i in spots_list:
             grid += "✅"
+        elif i in bomb_spots:
+            grid += ":bomb:"
         else:
             grid += "❌"
 
         if (i + 1) % 5 == 0:
             grid += "\n"
 
-    embed = discord.Embed(title=f"Mines with {spots} spots", description=grid, color=discord.Color.purple())
+    embed = discord.Embed(title=f"Mines with {spots} spots and {bombs} bombs", description=grid, color=discord.Color.purple())
     pfp = 'https://cdn.discordapp.com/attachments/1079890703137648710/1081642567621423194/a.gif'
-    embed.set_footer(text="✅: Safe ❌: Unknown\nMade by Semai")
+    embed.set_footer(text="✅: Safe ❌: Unknown :bomb: : Bomb\nMade by Semai")
     embed.set_thumbnail(url=pfp)
     await ctx.send(embed=embed)
+
 
 
 
@@ -114,4 +118,7 @@ async def cmds(ctx):
     embed.add_field(name="*Commands*", value=f"**.mines (spots)**\n**.towers (rows)**\n**.roulette**\n**.crash**\n")
     embed.set_footer(text="Made by Semai")
     await ctx.reply(embed=embed)
-bot.run("TOKEN-HERE")
+    
+    
+
+bot.run("TOKENHERE")
