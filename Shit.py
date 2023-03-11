@@ -19,16 +19,16 @@ async def mines(ctx, spots: int):
         if i in spots_list:
             grid += "✅"
         elif i in bomb_spots:
-            grid += ":bomb:"
+            grid += "💣"
         else:
             grid += "❌"
 
         if (i + 1) % 5 == 0:
             grid += "\n"
 
-    embed = discord.Embed(title=f"Mines with {spots} spots and {bombs} bombs", description=grid, color=discord.Color.purple())
+    embed = discord.Embed(title=f"Mines with {spots} spots", description=grid, color=discord.Color.purple())
     pfp = 'https://cdn.discordapp.com/attachments/1079890703137648710/1081642567621423194/a.gif'
-    embed.set_footer(text="✅: Safe ❌: Unknown :bomb: : Bomb\nMade by Semai")
+    embed.set_footer(text="✅: Safe | 💣: Bomb | ❌: Unknown\nMade by Semai")
     embed.set_thumbnail(url=pfp)
     await ctx.send(embed=embed)
 
